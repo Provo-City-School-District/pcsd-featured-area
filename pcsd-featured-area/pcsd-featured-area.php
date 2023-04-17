@@ -1,231 +1,42 @@
 <?php
 /*
   Plugin Name: PCSD Featured Area
-  Description: Featured Area Controller
-  Version: 0.1
+  Description: Featured Area Controller. This replaces the plugins "Featured Galleries", "Hide Featured Image"
+  Version: 1.0
   Author: Josh Espinoza
   Author URI: tech.provo.edu
 */
+//Load ACF fields
+include( plugin_dir_path( __FILE__ ) . 'acf-fields/acf-fields.php');
 
 
+add_filter('the_content', 'featured_area_display');
+function featured_area_display($content)
+{
+  // Check if we're inside the main loop in a single Post.
+  if (is_singular() && in_the_loop() && is_main_query()) {
 
-add_filter( 'the_content', 'featured_area_display');
-function featured_area_display($content) {
-    // Check if we're inside the main loop in a single Post.
-    if ( is_singular() && in_the_loop() && is_main_query() ) {
-        print_r(get_fields());
-        return $content . esc_html__( 'I’m filtering the content inside the main loop', 'wporg');
+    //Checks for Layout Variable
+    if (get_field('featured_layout_select')) {
+      if (get_field('featured_layout_select') == 'single') {
+        //Get Featured image value from Featured Area
+      ?>
+        <img src="<?php echo get_field('featured_image'); ?>" alt="" class="" />
+      <?php
+      } elseif (get_field('featured_layout_select') == 'video') {
+      ?>
+        <video controls poster="<?php echo get_field('video_poster'); ?>">
+          <source src="<?php echo get_field('video_file'); ?>" type="video/mp4">
+          Download the <a href="<?php echo get_field('video_file'); ?>">MP4</a> video.
+        </video>
+      <?php
+      } elseif (get_field('featured_layout_select') == 'none') {
+      }
+    } elseif (has_post_thumbnail())
+    //for post that existed before this plugin was developed checks for a featured image from the Wordpress core field and displays that image if the featured layout variable does not exist   
+    {
+      the_post_thumbnail();
     }
- 
     return $content;
+  }
 }
-
-
-
-
-
-
-
-
-
-//Editor Fields
-if( function_exists('acf_add_local_field_group') ):
-
-    acf_add_local_field_group(array(
-        'key' => 'group_62c7098576833',
-        'title' => 'Featured Area - Fields',
-        'fields' => array(
-            array(
-                'key' => 'field_62c70c35435fc',
-                'label' => 'Notes',
-                'name' => '',
-                'type' => 'message',
-                'instructions' => '',
-                'required' => 0,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'message' => 'Instructions for Users on the backend',
-                'new_lines' => 'wpautop',
-                'esc_html' => 0,
-            ),
-            array(
-                'key' => 'field_62c70a533eb59',
-                'label' => 'hide featured area on single',
-                'name' => 'hide_featured_area_on_single',
-                'type' => 'radio',
-                'instructions' => '',
-                'required' => 0,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'choices' => array(
-                    'no' => 'No',
-                    'yes' => 'Yes',
-                ),
-                'allow_null' => 0,
-                'other_choice' => 0,
-                'default_value' => '',
-                'layout' => 'vertical',
-                'return_format' => 'value',
-                'save_other_choice' => 0,
-            ),
-            array(
-                'key' => 'field_62c7099436f18',
-                'label' => 'Single Featured Image',
-                'name' => 'single_featured_image',
-                'type' => 'image',
-                'instructions' => '',
-                'required' => 1,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'return_format' => 'url',
-                'preview_size' => 'large',
-                'library' => 'all',
-                'min_width' => '',
-                'min_height' => '',
-                'min_size' => '',
-                'max_width' => '',
-                'max_height' => '',
-                'max_size' => '',
-                'mime_types' => '',
-            ),
-            array(
-                'key' => 'field_62c70db83c1a1',
-                'label' => 'gallery/video select',
-                'name' => 'gallery_video_select',
-                'type' => 'radio',
-                'instructions' => '',
-                'required' => 0,
-                'conditional_logic' => array(
-                    array(
-                        array(
-                            'field' => 'field_62c70a533eb59',
-                            'operator' => '!=',
-                            'value' => 'yes',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'choices' => array(
-                    'single' => 'Single Image',
-                    'gallery' => 'Image Gallery',
-                    'video' => 'Video',
-                ),
-                'allow_null' => 0,
-                'other_choice' => 0,
-                'default_value' => '',
-                'layout' => 'vertical',
-                'return_format' => 'value',
-                'save_other_choice' => 0,
-            ),
-            array(
-                'key' => 'field_62c709e49490c',
-                'label' => 'Featured Gallery',
-                'name' => 'featured_gallery',
-                'type' => 'gallery',
-                'instructions' => '',
-                'required' => 0,
-                'conditional_logic' => array(
-                    array(
-                        array(
-                            'field' => 'field_62c70db83c1a1',
-                            'operator' => '==',
-                            'value' => 'gallery',
-                        ),
-                        array(
-                            'field' => 'field_62c70a533eb59',
-                            'operator' => '!=',
-                            'value' => 'yes',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'return_format' => 'url',
-                'preview_size' => 'large',
-                'insert' => 'append',
-                'library' => 'all',
-                'min' => 5,
-                'max' => 15,
-                'min_width' => '',
-                'min_height' => '',
-                'min_size' => '',
-                'max_width' => '',
-                'max_height' => '',
-                'max_size' => '',
-                'mime_types' => '',
-            ),
-            array(
-                'key' => 'field_62c70b11760d2',
-                'label' => 'Featured Video',
-                'name' => 'featured_video',
-                'type' => 'file',
-                'instructions' => '',
-                'required' => 0,
-                'conditional_logic' => array(
-                    array(
-                        array(
-                            'field' => 'field_62c70db83c1a1',
-                            'operator' => '==',
-                            'value' => 'video',
-                        ),
-                        array(
-                            'field' => 'field_62c70a533eb59',
-                            'operator' => '!=',
-                            'value' => 'yes',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'return_format' => 'url',
-                'library' => 'all',
-                'min_size' => '',
-                'max_size' => '',
-                'mime_types' => 'mp4',
-            ),
-        ),
-        'location' => array(
-            array(
-                array(
-                    'param' => 'post_type',
-                    'operator' => '==',
-                    'value' => 'post',
-                ),
-            ),
-        ),
-        'menu_order' => 0,
-        'position' => 'acf_after_title',
-        'style' => 'default',
-        'label_placement' => 'top',
-        'instruction_placement' => 'label',
-        'hide_on_screen' => array(
-            0 => 'featured_image',
-        ),
-        'active' => true,
-        'description' => 'test',
-        'show_in_rest' => 0,
-    ));
-    
-    endif;		
