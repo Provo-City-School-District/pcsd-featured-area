@@ -2,7 +2,7 @@
 /*
   Plugin Name: PCSD Featured Area
   Description: Featured Area Controller. This replaces the plugins "Featured Galleries", "Hide Featured Image"
-  Version: 1.01
+  Version: 1.02
   Author: Josh Espinoza
   Author URI: tech.provo.edu
 */
@@ -21,7 +21,7 @@ function featured_area_display($content)
       if (get_field('featured_layout_select') == 'single') {
         //Get Featured image value from Featured Area
       ?>
-        <img src="<?php echo get_field('featured_image'); ?>" alt="" class="" />
+        <div class="featured-image-full" style="background-image: url(<?php echo get_field('featured_image'); ?>);"></div>
       <?php
       } elseif (get_field('featured_layout_select') == 'video') {
       ?>
