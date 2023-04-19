@@ -2,7 +2,7 @@
 /*
   Plugin Name: PCSD Featured Area
   Description: Featured Area Controller. This replaces the plugins "Featured Galleries", "Hide Featured Image"
-  Version: 1.02
+  Version: 1.03
   Author: Josh Espinoza
   Author URI: tech.provo.edu
 */
@@ -35,7 +35,9 @@ function featured_area_display($content)
     } elseif (has_post_thumbnail())
     //for post that existed before this plugin was developed checks for a featured image from the Wordpress core field and displays that image if the featured layout variable does not exist   
     {
-      the_post_thumbnail();
+      ?>
+      <div class="featured-image-full" style="background-image: url(<?php echo the_post_thumbnail_url(); ?>);"></div>
+      <?php
     }
     return $content;
   } else {
