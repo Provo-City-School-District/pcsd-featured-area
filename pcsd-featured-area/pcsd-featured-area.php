@@ -2,7 +2,7 @@
 /*
   Plugin Name: PCSD Featured Area
   Description: Featured Area Controller. This replaces the plugins "Featured Galleries", "Hide Featured Image"
-  Version: 1.0
+  Version: 1.01
   Author: Josh Espinoza
   Author URI: tech.provo.edu
 */
@@ -37,6 +37,8 @@ function featured_area_display($content)
     {
       the_post_thumbnail();
     }
+    return $content;
+  } else {
     return $content;
   }
 }
