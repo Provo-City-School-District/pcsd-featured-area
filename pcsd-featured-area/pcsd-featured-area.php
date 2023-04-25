@@ -2,14 +2,19 @@
 /*
   Plugin Name: PCSD Featured Area
   Description: Featured Area Controller. This replaces the plugins "Featured Galleries", "Hide Featured Image"
-  Version: 1.03
+  Version: 1.04
   Author: Josh Espinoza
   Author URI: tech.provo.edu
 */
+
 //Load ACF fields
-include( plugin_dir_path( __FILE__ ) . 'acf-fields/acf-fields.php');
+include(plugin_dir_path(__FILE__) . 'acf-fields/acf-fields.php');
+
+//path to where building image may be stored.
+$buildingImage = WP_CONTENT_URL . '/themes/pcsdtwentytwentythree/assets/images/building-image.jpg';
 
 
+//Featured area display on posts
 add_filter('the_content', 'featured_area_display');
 function featured_area_display($content)
 {
@@ -20,7 +25,7 @@ function featured_area_display($content)
     if (get_field('featured_layout_select')) {
       if (get_field('featured_layout_select') == 'single') {
         //Get Featured image value from Featured Area
-      ?>
+?>
         <div class="featured-image-full" style="background-image: url(<?php echo get_field('featured_image'); ?>);"></div>
       <?php
       } elseif (get_field('featured_layout_select') == 'video') {
@@ -37,10 +42,36 @@ function featured_area_display($content)
     {
       ?>
       <div class="featured-image-full" style="background-image: url(<?php echo the_post_thumbnail_url(); ?>);"></div>
-      <?php
+    <?php
     }
     return $content;
   } else {
     return $content;
+  }
+}
+
+
+//add og:image property for social media
+add_action('wp_head', 'social_media_image');
+function social_media_image()
+
+{
+  if (get_field('featured_image', $post_id)) {
+    ?>
+    <meta property="og:image" content="<?php echo get_field('featured_image'); ?>" />
+  <?php
+  } elseif (has_post_thumbnail()) {
+  ?>
+    <meta property="og:image" content="<?php echo get_the_post_thumbnail_url(); ?>" />
+  <?php
+  } elseif (file_exists($_SERVER['DOCUMENT_ROOT'] . $buildingImage)) {
+    $buildingImage = get_stylesheet_directory_uri() . '/assets/images/building-image.jpg';
+  ?>
+    <meta property="og:image" content="<?php echo $buildingImage; ?>" />
+  <?php
+  } else {
+  ?>
+    <meta property="og:image" content="https://provo.edu/wp-content/uploads/2018/03/provo-school-district-logo.jpg" />
+<?php
   }
 }

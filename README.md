@@ -14,3 +14,6 @@ switched the featured image html structure from a img to a div with the featured
 
 1.03
 fixed final fallback to wordpress core featured image to use the proper markup if used.
+
+1.04
+add featured image into the head meta as og:image for social media sites
