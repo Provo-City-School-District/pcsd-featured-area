@@ -1,4 +1,6 @@
 # pcsd-featured-area
+## Requires 
+Advanced Custom Fields -> https://wordpress.org/plugins/advanced-custom-fields/
 
 ## Changelog
 
