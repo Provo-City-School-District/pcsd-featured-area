@@ -5,8 +5,7 @@ Advanced Custom Fields -> https://wordpress.org/plugins/advanced-custom-fields/
 ## Changelog
 
 1.0
-initial release
--to control our featured area better
+initial release-to control our featured area better
 
 1.01
 forgot to add a fallback if no featured image is present to just return the content
