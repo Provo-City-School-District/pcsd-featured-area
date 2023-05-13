@@ -1,4 +1,7 @@
 # pcsd-featured-area
+
+Simple Plugin to better control our featured area. This easily allows our content creators to add a image or video across the top of our news articles
+
 ## Requires 
 Advanced Custom Fields -> https://wordpress.org/plugins/advanced-custom-fields/
 
