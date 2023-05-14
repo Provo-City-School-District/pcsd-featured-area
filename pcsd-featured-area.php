@@ -7,6 +7,13 @@
   Author URI: tech.provo.edu
 */
 
+function pcsd_featured_area_styles() {
+  wp_enqueue_style( 'pcsd-featured-area-style', plugin_dir_url( __FILE__ ) . 'css/pcsd-featured-area.css' );
+}
+add_action( 'wp_enqueue_scripts', 'pcsd_featured_area_styles' );
+
+
+
 //Load ACF fields
 include(plugin_dir_path(__FILE__) . 'acf-fields/acf-fields.php');
 
