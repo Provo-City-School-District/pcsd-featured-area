@@ -8,7 +8,7 @@
 */
 
 //Load ACF fields
-include(plugin_dir_path(__FILE__) . 'acf-fields/acf-fields.php');
+// include(plugin_dir_path(__FILE__) . 'acf-fields/acf-fields.php');
 
 //path to where building image may be stored.
 $buildingImage = WP_CONTENT_URL . '/themes/pcsdtwentytwentythree/assets/images/building-image.jpg';
