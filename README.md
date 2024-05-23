@@ -21,3 +21,6 @@ fixed final fallback to wordpress core featured image to use the proper markup i
 
 1.04
 add featured image into the head meta as og:image for social media sites
+
+1.05
+added field to provide alternative text for images.
