@@ -26,7 +26,7 @@ function featured_area_display($content)
       if (get_field('featured_layout_select') == 'single') {
         //Get Featured image value from Featured Area
 ?>
-        <div class="featured-image-full" style="background-image: url(<?php echo get_field('featured_image'); ?>);"></div>
+        <div class="featured-image-full" style="background-image: url(<?php echo get_field('featured_image'); ?>);" title="<?= get_field('featured_image_alt') ?>"></div>
       <?php
       } elseif (get_field('featured_layout_select') == 'video') {
       ?>
