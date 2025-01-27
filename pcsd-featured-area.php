@@ -2,7 +2,7 @@
 /*
   Plugin Name: PCSD Featured Area
   Description: Featured Area Controller. allows for single image, and videos in the featured area
-  Version: 1.05
+  Version: 1.0.6
   Author: Josh Espinoza
   Author URI: tech.provo.edu
 */
@@ -18,6 +18,9 @@ $buildingImage = WP_CONTENT_URL . '/themes/pcsdtwentytwentythree/assets/images/b
 add_filter('the_content', 'featured_area_display');
 function featured_area_display($content)
 {
+  global $post; // Ensure the global $post variable is available
+  $post_id = $post->ID; // Define the $post_id variable
+
   // Check if we're inside the main loop in a single Post.
   if (is_singular() && in_the_loop() && is_main_query()) {
 
