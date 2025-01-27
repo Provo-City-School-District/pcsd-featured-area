@@ -13,7 +13,6 @@
 //path to where building image may be stored.
 $buildingImage = WP_CONTENT_URL . '/themes/pcsdtwentytwentythree/assets/images/building-image.jpg';
 
-
 //Featured area display on posts
 add_filter('the_content', 'featured_area_display');
 function featured_area_display($content)
@@ -53,12 +52,13 @@ function featured_area_display($content)
   }
 }
 
-
 //add og:image property for social media
 add_action('wp_head', 'social_media_image');
 function social_media_image()
-
 {
+  global $post; // Ensure the global $post variable is available
+  $post_id = $post->ID; // Define the $post_id variable
+
   if (get_field('featured_image', $post_id)) {
     ?>
     <meta property="og:image" content="<?php echo get_field('featured_image'); ?>" />
@@ -78,3 +78,4 @@ function social_media_image()
 <?php
   }
 }
+?>
