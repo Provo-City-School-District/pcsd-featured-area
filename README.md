@@ -25,5 +25,5 @@ add featured image into the head meta as og:image for social media sites
 1.0.5
 added field to provide alternative text for images.
 
-1.0.6-r1
+1.0.6-r2
 ensure post variables are set before trying to use them
