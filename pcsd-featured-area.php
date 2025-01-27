@@ -2,7 +2,7 @@
 /*
   Plugin Name: PCSD Featured Area
   Description: Featured Area Controller. allows for single image, and videos in the featured area
-  Version: 1.0.6
+  Version: 1.0.7
   Author: Josh Espinoza
   Author URI: tech.provo.edu
 */
