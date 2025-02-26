@@ -11,7 +11,8 @@
 // include(plugin_dir_path(__FILE__) . 'acf-fields/acf-fields.php');
 
 //path to where building image may be stored.
-$buildingImage = WP_CONTENT_URL . '/themes/pcsdtwentytwentythree/assets/images/building-image.jpg';
+$buildingImage = get_stylesheet_directory_uri() . '/assets/images/building-image.jpg';
+
 
 //Featured area display on posts
 add_filter('the_content', 'featured_area_display');
